@@ -1,14 +1,15 @@
 from typing import List
 
+from my_wallet import const
 from my_wallet.storage import AbstractStorage
 
 
 class Transaction(dict):
-    def __init__(self, timestamp: float, type: str, value: float, description: str = None):
+    def __init__(self, timestamp: float, type: const.TransactionType, value: float, description: str = None):
         super().__init__(timestamp=timestamp, type=type, value=value, description=description)
 
     @property
-    def type(self):
+    def type(self) -> const.TransactionType:
         return self['type']
 
     @property
@@ -27,8 +28,8 @@ class TransactionManager:
         self.transactions: List[Transaction] = []
         self.storage = storage
 
-    def add_transaction(self, **data):
-        self.transactions.append(Transaction(**data))
+    def add_transaction(self, type: const.TransactionType, value: float, **data):
+        self.transactions.append(Transaction(type=type, value=value, **data))
         self.save_transactions()
 
     def load_transactions(self):

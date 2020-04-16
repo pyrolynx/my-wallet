@@ -1,0 +1,49 @@
+from typing import List
+
+from my_wallet.storage import AbstractStorage
+
+
+class Transaction(dict):
+    def __init__(self, timestamp: float, type: str, value: float, description: str = None):
+        super().__init__(timestamp=timestamp, type=type, value=value, description=description)
+
+    @property
+    def type(self):
+        return self['type']
+
+    @property
+    def value(self):
+        return self['value']
+
+    @property
+    def description(self):
+        return self['description']
+
+
+class TransactionManager:
+    TRANSACTIONS_TYPE = ['income', 'outcome']
+
+    def __init__(self, storage: AbstractStorage):
+        self.transactions: List[Transaction] = []
+        self.storage = storage
+
+    def add_transaction(self, **data):
+        self.transactions.append(Transaction(**data))
+        self.save_transactions()
+
+    def load_transactions(self):
+        transaction_data = self.storage.load()
+        for data in transaction_data:
+            self.transactions.append(Transaction(**data))
+
+    def save_transactions(self):
+        self.storage.save(self.transactions)
+
+    @property
+    def summary(self):
+        return {
+            'transactions': self.transactions,
+            'balance': sum(x.value for x in self.transactions if x.type == 'income') - \
+                       sum(x.value for x in self.transactions if x.type == 'outcome')
+        }
+

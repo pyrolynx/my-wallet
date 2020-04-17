@@ -54,6 +54,6 @@ def add_transactions():
     except ValueError:
         raise errors.InvalidArgument('value')
 
-    manager.add_transaction(timestamp=utils.now_timestamp(), type=transaction_type, value=data['value'],
+    manager.add_transaction(timestamp=utils.now_timestamp(), type=transaction_type.value, value=data['value'],
                             description=data.get('description'))
     return redirect('/')

@@ -20,3 +20,9 @@ class TransactionType(enum.Enum):
             return cls(value)
         except ValueError:
             raise error
+
+    @classmethod
+    def to_json(cls, value):
+        if isinstance(value, cls):
+            return str(value)
+        return value

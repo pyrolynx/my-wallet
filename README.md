@@ -31,7 +31,7 @@ python3 main.py --help
 ```bash
 # Отправка POST запроса с JSON-телом
 curl -X POST http://0.0.0.0:8080/add \
-    -H 'Content-type: application/json'
+    -H 'Content-type: application/json' \
     -d '{
         "type": "income",
         "value": 200.0,

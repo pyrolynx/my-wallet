@@ -2,6 +2,8 @@ import abc
 import json
 import os
 
+from my_wallet import const
+
 
 class AbstractStorage(abc.ABC):
     def load(self):

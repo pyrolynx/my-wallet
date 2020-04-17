@@ -8,4 +8,9 @@ for name in list(locals()):
 
 
 def update_config_from_args(args):
-    pass
+    global HOST, PORT, DEBUG
+    HOST = args.host
+    PORT = args.port
+    DEBUG = args.debug
+
+# docker run --rm --name my-wallet-container -p 8080:8080 -e 'DEBUG=1' my-wallet --host 0.0.0.0

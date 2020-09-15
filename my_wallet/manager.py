@@ -1,3 +1,4 @@
+import time
 from typing import List, Union
 
 from my_wallet import const
@@ -31,6 +32,7 @@ class TransactionManager:
         self.storage = storage
 
     def add_transaction(self, type: const.TransactionType, value: float, **data):
+        data['timestamp'] = data.pop('timestamp', time.time())
         self.transactions.append(Transaction(type=type, value=value, **data))
         self.save_transactions()
 

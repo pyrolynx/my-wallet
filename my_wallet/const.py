@@ -1,5 +1,14 @@
 import enum
-from typing import Type, Union
+import json
+from typing import Type, Union, Any
+
+
+class EnumEncoder(json.JSONEncoder):
+    def default(self, o: Any) -> Any:
+        v = o
+        if isinstance(o, enum.Enum):
+            return o.value
+        return super().default(v)
 
 
 class TransactionType(enum.Enum):

@@ -1,12 +1,14 @@
-from typing import List
+from typing import List, Union
 
 from my_wallet import const
 from my_wallet.storage import AbstractStorage
 
 
 class Transaction(dict):
-    def __init__(self, timestamp: float, type: const.TransactionType, value: float, description: str = None):
-        super().__init__(timestamp=timestamp, type=type, value=value, description=description)
+    def __init__(
+        self, timestamp: float, type: Union[str, const.TransactionType], value: float, description: str = None,
+    ):
+        super().__init__(timestamp=timestamp, type=const.TransactionType(type), value=value, description=description)
 
     @property
     def type(self) -> const.TransactionType:

@@ -1,6 +1,7 @@
 -r requirements.txt
 pytest
 pytest-lazy-fixture
+pytest-cov
 pre-commit
 black
 isort

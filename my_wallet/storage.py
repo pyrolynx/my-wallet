@@ -1,9 +1,9 @@
 import abc
-import enum
 import json
 import os
 
 from my_wallet.const import EnumEncoder
+
 
 class AbstractStorage(abc.ABC):
     def load(self):
@@ -23,9 +23,9 @@ class FileStorage(AbstractStorage):
 
     def load(self):
         self._check_file_exists()
-        with open(self.filename, 'r+') as f:
+        with open(self.filename, "r+") as f:
             return json.load(f)
 
     def save(self, data):
-        with open(self.filename, 'w+') as f:
+        with open(self.filename, "w+") as f:
             json.dump(data, f, cls=EnumEncoder)

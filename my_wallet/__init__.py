@@ -1,3 +1,3 @@
-from my_wallet.app import app
+from my_wallet.app import app  # noqa
 
-__all___ = ['app']
+__all___ = ["app"]

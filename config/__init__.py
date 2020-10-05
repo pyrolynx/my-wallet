@@ -1,6 +1,6 @@
 import os
 
-from config.base import *
+from config.base import *  # noqa
 
 for name in list(locals()):
     if name in os.environ:

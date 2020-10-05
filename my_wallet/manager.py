@@ -7,32 +7,43 @@ from my_wallet.storage import AbstractStorage
 
 class Transaction(dict):
     def __init__(
-        self, timestamp: float, type: Union[str, const.TransactionType], value: float, description: str = None,
+        self,
+        timestamp: float,
+        type: Union[str, const.TransactionType],
+        value: float,
+        description: str = None,
     ):
-        super().__init__(timestamp=timestamp, type=const.TransactionType(type), value=value, description=description)
+        super().__init__(
+            timestamp=timestamp,
+            type=const.TransactionType(type),
+            value=value,
+            description=description,
+        )
 
     @property
     def type(self) -> const.TransactionType:
-        return self['type']
+        return self["type"]
 
     @property
     def value(self):
-        return self['value']
+        return self["value"]
 
     @property
     def description(self):
-        return self['description']
+        return self["description"]
 
 
 class TransactionManager:
-    TRANSACTIONS_TYPE = ['income', 'outcome']
+    TRANSACTIONS_TYPE = ["income", "outcome"]
 
     def __init__(self, storage: AbstractStorage):
         self.transactions: List[Transaction] = []
         self.storage = storage
 
-    def add_transaction(self, type: const.TransactionType, value: float, **data):
-        data['timestamp'] = data.pop('timestamp', time.time())
+    def add_transaction(
+        self, type: const.TransactionType, value: float, **data
+    ):
+        data["timestamp"] = data.pop("timestamp", time.time())
         self.transactions.append(Transaction(type=type, value=value, **data))
         self.save_transactions()
 
@@ -47,8 +58,9 @@ class TransactionManager:
     @property
     def summary(self):
         return {
-            'transactions': self.transactions,
-            'balance': sum(x.value for x in self.transactions if x.type == 'income') - \
-                       sum(x.value for x in self.transactions if x.type == 'outcome')
+            "transactions": self.transactions,
+            "balance": sum(
+                x.value for x in self.transactions if x.type == "income"
+            )
+            - sum(x.value for x in self.transactions if x.type == "outcome"),
         }
-

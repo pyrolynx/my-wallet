@@ -1,6 +1,6 @@
 import enum
 import json
-from typing import Type, Union, Any
+from typing import Any, Type, Union
 
 
 class EnumEncoder(json.JSONEncoder):
@@ -12,8 +12,8 @@ class EnumEncoder(json.JSONEncoder):
 
 
 class TransactionType(enum.Enum):
-    income = 'income'
-    outcome = 'outcome'
+    income = "income"
+    outcome = "outcome"
 
     def __eq__(self, other):
         if isinstance(other, str):
@@ -24,7 +24,9 @@ class TransactionType(enum.Enum):
         return self.value
 
     @classmethod
-    def check(cls, value: str, error: Union[Type[Exception], Exception] = ValueError):
+    def check(
+        cls, value: str, error: Union[Type[Exception], Exception] = ValueError
+    ):
         try:
             return cls(value)
         except ValueError:

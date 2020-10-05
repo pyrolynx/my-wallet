@@ -5,7 +5,7 @@ class APIError(Exception):
 
 class InvalidContent(APIError):
     http_code = 400
-    message = 'json body expected'
+    message = "json body expected"
 
 
 class InvalidArgument(APIError):
@@ -13,7 +13,7 @@ class InvalidArgument(APIError):
         self.message = self.message.format(arg_name)
 
     http_code = 400
-    message = 'argument `{}` have invalid value'
+    message = "argument `{}` have invalid value"
 
 
 class MissingArgument(APIError):
@@ -21,9 +21,9 @@ class MissingArgument(APIError):
         self.message = self.message.format(arg_name)
 
     http_code = 400
-    message = 'argument `{}` is missing'
+    message = "argument `{}` is missing"
 
 
 class InvalidTransactionType(APIError):
     http_code = 400
-    message = 'invalid transaction type'
+    message = "invalid transaction type"

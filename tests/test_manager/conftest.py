@@ -1,7 +1,8 @@
 import pytest
-from my_wallet.manager import TransactionManager, Transaction
+
+from my_wallet.manager import Transaction
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def transaction():
-    return Transaction(timestamp=0, type='income', value=100)
+    return Transaction(timestamp=0, type="income", value=100)

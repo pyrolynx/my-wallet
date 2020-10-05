@@ -1,0 +1,7 @@
+-r requirements.txt
+pytest
+pytest-lazy-fixture
+pre-commit
+black
+isort
+flake8

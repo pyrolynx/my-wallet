@@ -1,4 +1,5 @@
 import functools
+import logging
 
 from flask import Flask, jsonify, redirect, request
 
@@ -12,6 +13,8 @@ app = Flask(__package__)
 manager = TransactionManager(storage=FileStorage(config.FILE_STORAGE))
 manager.load_transactions()
 
+logger = logging.getLogger(__name__)
+
 
 def json_api(func):
     @functools.wraps(func)
@@ -23,7 +26,7 @@ def json_api(func):
         except errors.APIError as e:
             return jsonify({"error": e.message}), e.http_code
         except Exception as e:
-            print(f"{type(e)}: {e}")
+            logger.exception(f"{type(e)}: {e}")
             return jsonify({"error": "unhandled server error"}), 500
 
     return wrapper
@@ -44,6 +47,7 @@ def add_transactions():
         assert "type" in data, "type"
         assert "value" in data, "value"
     except AssertionError as e:
+        logger.debug('required argument is missing')
         raise errors.MissingArgument(str(e))
 
     transaction_type = const.TransactionType.check(

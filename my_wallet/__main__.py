@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(
         level=logging.INFO if not args.debug else logging.DEBUG,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
     from my_wallet import app

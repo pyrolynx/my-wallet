@@ -47,7 +47,7 @@ def add_transactions():
         assert "type" in data, "type"
         assert "value" in data, "value"
     except AssertionError as e:
-        logger.debug('required argument is missing')
+        logger.debug("required argument is missing")
         raise errors.MissingArgument(str(e))
 
     transaction_type = const.TransactionType.check(

@@ -1,9 +1,9 @@
-name: Python package
+name: Check style and tests
 
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
